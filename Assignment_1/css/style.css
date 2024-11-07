@@ -1,0 +1,32 @@
+/* styles.css */
+body {
+    font-family: Arial, sans-serif;
+  }
+  
+  
+  
+  .btn-primary {
+    background-color: #007bff;
+    border: none;
+  }
+  
+  .card {
+    border: 1px solid black;
+    margin-bottom: 12px;
+  }
+  .navbar{
+
+  }
+  .productImage{
+    height: 220px;
+  }
+  
+  .deals{
+    font-size: 23px;
+    text-align: center;
+  }
+.dealContainer{
+
+    padding-top: 20px;
+    background-color: rgb(255, 224, 246);
+}
