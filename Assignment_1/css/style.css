@@ -9,7 +9,9 @@ body {
     background-color: #007bff;
     border: none;
   }
-  
+  .logo{
+    width: 60px;
+  }
   .card {
     border: 1px solid black;
     margin-bottom: 12px;
@@ -28,5 +30,52 @@ body {
 .dealContainer{
 
     padding-top: 20px;
-    background-color: rgb(255, 224, 246);
+    background-color: rgb(255 237 148);
+}
+.btn{
+  background-color: #ffff5c;
+  color: black;
+  border-radius: 8px;
+  border: none;
+}
+.btn:hover{
+  background-color: yellow;
+  color: black;
+}
+.landing-page {
+  background-image: url('/images/bg.jpg'); /* Replace with your e-commerce image URL */
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  text-align: center;
+  position: relative;
+}
+
+/* Overlay for text contrast */
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6); /* Semi-transparent overlay */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.landing-page h1 {
+  font-size: 3.5rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.landing-page p {
+  font-size: 1.5rem;
+  font-weight: 300;
 }
