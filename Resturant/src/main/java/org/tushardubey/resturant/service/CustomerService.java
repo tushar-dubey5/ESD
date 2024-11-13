@@ -5,6 +5,7 @@ import org.tushardubey.resturant.dto.CustomerResponse;
 import org.tushardubey.resturant.entity.Customer;
 import org.tushardubey.resturant.mapper.CustomerMapper;
 import org.tushardubey.resturant.repo.CustomerRepo;
+import org.tushardubey.resturant.dto.LoginRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -21,4 +22,16 @@ public class CustomerService {
         repo.save(customer);
         return "Created";
     }
+
+    public String loginCustomer(LoginRequest request) {
+        Customer customer = repo.findByEmail(request.email())
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        if (customer.getPassword().equals(request.password())) {
+            return "Login successful";
+        } else {
+            throw new RuntimeException("Invalid credentials");
+        }
+    }
 }
+

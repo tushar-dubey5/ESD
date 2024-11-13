@@ -2,6 +2,7 @@ package org.tushardubey.resturant.controller;
 
 import org.tushardubey.resturant.dto.CustomerRequest;
 import org.tushardubey.resturant.service.CustomerService;
+import org.tushardubey.resturant.dto.LoginRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -20,4 +21,10 @@ public class CustomerController {
     public ResponseEntity<String> createCustomer(@RequestBody @Valid CustomerRequest request){
         return ResponseEntity.ok(customerservice.createCustomer(request));
     }
+
+    @PostMapping("/login")
+    public ResponseEntity<String> loginCustomer(@RequestBody @Valid LoginRequest request) {
+        return ResponseEntity.ok(customerservice.loginCustomer(request));
+    }
+
 }
