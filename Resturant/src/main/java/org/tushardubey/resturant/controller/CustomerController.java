@@ -26,5 +26,4 @@ public class CustomerController {
     public ResponseEntity<String> loginCustomer(@RequestBody @Valid LoginRequest request) {
         return ResponseEntity.ok(customerservice.loginCustomer(request));
     }
-
 }
