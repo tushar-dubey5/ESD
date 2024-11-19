@@ -1,4 +1,5 @@
 package org.tushardubey.java.khanakhajana.dto;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public record CustomerResponse(

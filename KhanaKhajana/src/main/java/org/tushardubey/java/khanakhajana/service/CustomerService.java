@@ -7,6 +7,7 @@ import org.tushardubey.java.khanakhajana.jwt.JwtService;
 import org.tushardubey.java.khanakhajana.mapper.CustomerMapper;
 import org.tushardubey.java.khanakhajana.repo.CustomerRepo;
 import org.tushardubey.java.khanakhajana.dto.LoginRequest;
+import org.tushardubey.java.khanakhajana.dto.UpdateRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -41,5 +42,33 @@ public class CustomerService {
             throw new RuntimeException("Invalid credentials");
         }
     }
+    public void updateCustomer(String token, UpdateRequest updateRequest) {
+        // Extract email from token
+        String email = jwtService.getEmailFromToken(token.replace("Bearer ", ""));
+
+        // Find customer by email
+        Customer customer = repo.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("Customer not found"));
+
+        // Update fields
+        customer.setAddress(updateRequest.address());
+        customer.setGender(updateRequest.gender());
+        customer.setPhoneNumber(updateRequest.phoneNumber());
+
+        // Save updated customer
+        repo.save(customer);
+    }
+    public void deleteCustomer(String token) {
+        // Extract email from the token
+        String email = jwtService.getEmailFromToken(token.replace("Bearer ", ""));
+        // Fetch the customer from the database
+        Customer customer = repo.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("Customer not found"));
+
+        // Delete the customer from the database
+        repo.delete(customer);
+    }
+
+
 }
 

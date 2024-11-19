@@ -32,6 +32,6 @@ public class Customer {
     @Column(name = "gender")
     private String gender;
 
-    @Column(name = "phone_number", unique = true)
+    @Column(name = "phone_number", unique = true, nullable = false)
     private String phoneNumber;
 }

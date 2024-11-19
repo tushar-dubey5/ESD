@@ -1,15 +1,13 @@
 package org.tushardubey.java.khanakhajana.controller;
 
+import org.springframework.web.bind.annotation.*;
 import org.tushardubey.java.khanakhajana.dto.CustomerRequest;
 import org.tushardubey.java.khanakhajana.service.CustomerService;
 import org.tushardubey.java.khanakhajana.dto.LoginRequest;
+import org.tushardubey.java.khanakhajana.dto.UpdateRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 
 @RequiredArgsConstructor
@@ -25,5 +23,17 @@ public class CustomerController {
     @PostMapping("/login")
     public ResponseEntity<String> loginCustomer(@RequestBody @Valid LoginRequest request) {
         return ResponseEntity.ok(customerservice.loginCustomer(request));
+    }
+    @PutMapping("/update")
+    public ResponseEntity<String> updateCustomer(
+            @RequestHeader("Authorization") String token,
+            @RequestBody @Valid UpdateRequest updateRequest) {
+        customerservice.updateCustomer(token, updateRequest);
+        return ResponseEntity.ok("Customer information updated successfully");
+    }
+    @DeleteMapping("/delete")
+    public ResponseEntity<String> deleteCustomer(@RequestHeader("Authorization") String token) {
+        customerservice.deleteCustomer(token);
+        return ResponseEntity.ok("Customer account deleted successfully");
     }
 }
