@@ -1,11 +1,15 @@
-import React from 'react';
+import React from "react";
+import Navbar from "../Components/Navbar.js";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Home from "./Home";
+import RequestSwapping from "./RequestSwapping";
+import ReceivedSwappingRequests from "./ReceivedSwappingRequests";
 
 const LandingPage = () => {
-    return (
-        <div className="container mt-5">
-            <h1>Welcome to the Student Room Swap Portal</h1>
-        </div>
-    );
+  return (
+   
+      <Navbar />
+  );
 };
 
 export default LandingPage;

@@ -16,6 +16,7 @@ public class JwtService {
     public String generateToken(Student student) {
         return Jwts.builder()
                 .setSubject(student.getEmail())
+                .claim("id", student.getId())
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + 86400000)) // 1 day expiry
                 .signWith(key)

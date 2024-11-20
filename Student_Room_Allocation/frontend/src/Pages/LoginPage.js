@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-
+import { jwtDecode } from 'jwt-decode';
 const LoginPage = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -15,13 +15,23 @@ const LoginPage = () => {
                 email,
                 password,
             });
-            const token = response.data; // Assuming the token is returned as a raw string
-            localStorage.setItem('token', token);
-            navigate('/landing');
+            const token = response.data; // Assume token is returned as a raw string
+            localStorage.setItem('token', token); // Store the token in localStorage
+
+     
+
+        // Decode the JWT to extract user ID
+             const decodedToken = jwtDecode(token);
+             console.log("Decoded Token:", decodedToken); // Debugging
+             const userId = decodedToken.id; // Access 'id' from custom claims
+             localStorage.setItem('Id', userId); // Store user ID in localStorage
+
+            navigate('/landing'); // Redirect to landing page
         } catch (err) {
             setError('Invalid email or password.');
         }
     };
+    
 
     return (
         <div className="container mt-5">
