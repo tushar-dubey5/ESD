@@ -1,5 +1,6 @@
 package org.tushardubey.java.backend.controller;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,7 +17,7 @@ public class SwapApplicationController {
     private final SwapApplicationService swapApplicationService;
 
     @PostMapping("/request")
-    public ResponseEntity<SwapResponse> createSwapRequest(@RequestBody SwapRequest request) {
+    public ResponseEntity<SwapResponse> createSwapRequest(@RequestBody @Valid SwapRequest request) {
         return ResponseEntity.ok(swapApplicationService.createSwapRequest(request));
     }
 

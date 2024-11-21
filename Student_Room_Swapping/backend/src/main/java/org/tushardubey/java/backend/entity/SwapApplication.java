@@ -30,3 +30,4 @@ public class SwapApplication {
 
     private String recipientMessage; // Message from recipient
 }
+

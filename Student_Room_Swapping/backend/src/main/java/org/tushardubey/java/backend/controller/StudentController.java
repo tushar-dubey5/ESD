@@ -20,7 +20,7 @@ public class StudentController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> loginStudentr(@RequestBody @Valid LoginRequest request) {
+    public ResponseEntity<String> loginStudent(@RequestBody @Valid LoginRequest request) {
         return ResponseEntity.ok(studentService.loginStudent(request));
     }
 }

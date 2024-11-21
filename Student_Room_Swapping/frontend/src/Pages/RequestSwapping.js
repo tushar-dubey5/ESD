@@ -3,15 +3,15 @@ import axios from "axios";
 
 const RequestSwapping = () => {
   const [formData, setFormData] = useState({
-    applicant: "", // Auto-filled with logged-in user's ID
-    recipient: "",
+    applicantId: "", // Auto-filled with logged-in user's ID
+    recipientId: "",
     applicationMessage: "",
   });
 
   useEffect(() => {
     const userId = localStorage.getItem("Id"); // Fetch logged-in user ID from localStorage
     if (userId) {
-      setFormData((prev) => ({ ...prev, applicant: userId }));
+      setFormData((prev) => ({ ...prev, applicantId: userId }));
     } else {
       alert("User ID not found. Please log in again."); // Optional error handling
     }
@@ -25,6 +25,7 @@ const RequestSwapping = () => {
     e.preventDefault();
     try {
       const token = localStorage.getItem("token"); // Fetch token from localStorage
+      console.log("Hello: ", formData);
       const response = await axios.post(
         "http://localhost:8080/api/v1/swap/request",
         formData,
@@ -41,24 +42,24 @@ const RequestSwapping = () => {
       <h2>Create Room Swapping Request</h2>
       <form onSubmit={handleSubmit}>
         <div className="mb-3">
-          <label htmlFor="applicant" className="form-label">Applicant</label>
+          <label htmlFor="applicantId" className="form-label">Applicant</label>
           <input
             type="text"
             className="form-control"
-            id="applicant"
-            name="applicant"
-            value={formData.applicant}
+            id="applicantId"
+            name="applicantId"
+            value={formData.applicantId}
             readOnly
           />
         </div>
         <div className="mb-3">
-          <label htmlFor="recipient" className="form-label">Recipient</label>
+          <label htmlFor="recipientId" className="form-label">Recipient</label>
           <input
             type="text"
             className="form-control"
-            id="recipient"
-            name="recipient"
-            value={formData.recipient}
+            id="recipientId"
+            name="recipientId"
+            value={formData.recipientId}
             onChange={handleChange}
             required
           />

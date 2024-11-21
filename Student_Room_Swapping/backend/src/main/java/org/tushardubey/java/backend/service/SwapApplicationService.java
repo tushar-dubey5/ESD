@@ -23,12 +23,17 @@ public class SwapApplicationService {
     private final HostelRepo hostelRepo;
 
     public SwapResponse createSwapRequest(SwapRequest request) {
+        System.out.println("Received SwapRequest: " + request);
+
+        // Validate applicant existence
         Student applicant = studentRepo.findById(request.getApplicantId())
-                .orElseThrow(() -> new RuntimeException("Applicant not found"));
+                .orElseThrow(() -> new RuntimeException("Applicant not found: " + request.getApplicantId()));
 
+        // Validate recipient existence
         Student recipient = studentRepo.findById(request.getRecipientId())
-                .orElseThrow(() -> new RuntimeException("Recipient not found"));
+                .orElseThrow(() -> new RuntimeException("Recipient not found: " + request.getRecipientId()));
 
+        // Build and save the swap request
         SwapApplication swapApplication = SwapApplication.builder()
                 .applicant(applicant)
                 .recipient(recipient)
@@ -37,6 +42,9 @@ public class SwapApplicationService {
                 .build();
 
         SwapApplication savedRequest = swapApplicationRepo.save(swapApplication);
+
+        // Log the saved request
+        System.out.println("Saved SwapApplication: " + savedRequest);
 
         return mapToResponse(savedRequest);
     }
