@@ -24,7 +24,7 @@ public class Hostel {
     private Long roomNumber;
 
     @OneToOne
-    @JoinColumn(name = "student_id", referencedColumnName = "id")
+    @JoinColumn(name = "student_id", referencedColumnName = "id", unique = false)
     private Student student; // Student occupying the room
 }
 

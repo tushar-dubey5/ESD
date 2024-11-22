@@ -6,5 +6,5 @@ import org.tushardubey.java.backend.entity.Hostel;
 import java.util.Optional;
 
 public interface HostelRepo extends JpaRepository<Hostel, Long> {
-    Optional<Hostel> findByRoomNumber(Long roomNumber);
+    Optional<Hostel> findByStudentId(Long studentId);
 }

@@ -25,11 +25,10 @@ public class SwapApplicationController {
     public ResponseEntity<List<SwapResponse>> getRequestsForRecipient(@PathVariable Long recipientId) {
         return ResponseEntity.ok(swapApplicationService.getRequestsForRecipient(recipientId));
     }
-
     @PostMapping("/accept/{requestId}")
     public ResponseEntity<String> acceptRequest(
             @PathVariable Long requestId,
-            @RequestParam String recipientMessage
+            @RequestBody String recipientMessage
     ) {
         swapApplicationService.acceptRequest(requestId, recipientMessage);
         return ResponseEntity.ok("Request Accepted");

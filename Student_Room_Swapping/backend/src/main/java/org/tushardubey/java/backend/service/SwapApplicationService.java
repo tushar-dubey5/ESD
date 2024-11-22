@@ -25,15 +25,12 @@ public class SwapApplicationService {
     public SwapResponse createSwapRequest(SwapRequest request) {
         System.out.println("Received SwapRequest: " + request);
 
-        // Validate applicant existence
         Student applicant = studentRepo.findById(request.getApplicantId())
                 .orElseThrow(() -> new RuntimeException("Applicant not found: " + request.getApplicantId()));
 
-        // Validate recipient existence
         Student recipient = studentRepo.findById(request.getRecipientId())
                 .orElseThrow(() -> new RuntimeException("Recipient not found: " + request.getRecipientId()));
 
-        // Build and save the swap request
         SwapApplication swapApplication = SwapApplication.builder()
                 .applicant(applicant)
                 .recipient(recipient)
@@ -42,8 +39,6 @@ public class SwapApplicationService {
                 .build();
 
         SwapApplication savedRequest = swapApplicationRepo.save(swapApplication);
-
-        // Log the saved request
         System.out.println("Saved SwapApplication: " + savedRequest);
 
         return mapToResponse(savedRequest);
@@ -56,9 +51,9 @@ public class SwapApplicationService {
                 .collect(Collectors.toList());
     }
 
-
     @Transactional
     public void acceptRequest(Long requestId, String recipientMessage) {
+        // Fetch the swap request
         SwapApplication request = swapApplicationRepo.findById(requestId)
                 .orElseThrow(() -> new RuntimeException("Request not found"));
 
@@ -69,22 +64,34 @@ public class SwapApplicationService {
         request.setStatus("ACCEPTED");
         request.setRecipientMessage(recipientMessage);
 
-        // Swap the rooms in the Hostel table
-        Hostel applicantHostel = hostelRepo.findByRoomNumber(request.getApplicant().getId())
+        // Fetch hostels for applicant and recipient
+        Hostel applicantHostel = hostelRepo.findByStudentId(request.getApplicant().getId())
                 .orElseThrow(() -> new RuntimeException("Applicant's room not found"));
-
-        Hostel recipientHostel = hostelRepo.findByRoomNumber(request.getRecipient().getId())
+        Hostel recipientHostel = hostelRepo.findByStudentId(request.getRecipient().getId())
                 .orElseThrow(() -> new RuntimeException("Recipient's room not found"));
 
-        Student tempStudent = applicantHostel.getStudent();
-        applicantHostel.setStudent(recipientHostel.getStudent());
-        recipientHostel.setStudent(tempStudent);
-
+        // Temporarily set students to null to avoid unique constraint violation
+        applicantHostel.setStudent(null);
+        recipientHostel.setStudent(null);
         hostelRepo.save(applicantHostel);
         hostelRepo.save(recipientHostel);
 
+        // Perform the swap
+        Student applicantStudent = request.getApplicant();
+        Student recipientStudent = request.getRecipient();
+
+        applicantHostel.setStudent(recipientStudent);
+        recipientHostel.setStudent(applicantStudent);
+
+        // Save the updated hostels
+        hostelRepo.save(applicantHostel);
+        hostelRepo.save(recipientHostel);
+
+        // Save the updated swap application status
         swapApplicationRepo.save(request);
     }
+
+
 
     public void rejectRequest(Long requestId, String recipientMessage) {
         SwapApplication request = swapApplicationRepo.findById(requestId)
