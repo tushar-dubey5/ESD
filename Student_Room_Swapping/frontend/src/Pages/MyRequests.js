@@ -1,19 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Table } from 'react-bootstrap';
+import Navbar from '../Components/Navbar';
 
 const MyRequests = () => {
     const [requests, setRequests] = useState([]);
-    const applicantId = localStorage.getItem("studentId"); // Assuming the ID is stored in local storage after login.
-
+    const applicantId = localStorage.getItem("Id"); // Assuming the ID is stored in local storage after login.
+    console.log("Applicant Id: ",applicantId);
     useEffect(() => {
         axios
-            .get(`http://localhost:8080/api/swap-applications/my-requests?applicantId=${applicantId}`)
+            .get(`http://localhost:8080/api/v1/swap/my-requests?applicantId=${applicantId}`)
             .then((response) => setRequests(response.data))
             .catch((error) => console.error("Error fetching requests:", error));
     }, [applicantId]);
 
     return (
+        <>
+        <Navbar/>
         <div className="container mt-4">
             <h2>My Room Swapping Requests</h2>
             <Table striped bordered hover>
@@ -39,6 +42,7 @@ const MyRequests = () => {
                 </tbody>
             </Table>
         </div>
+        </>
     );
 };
 

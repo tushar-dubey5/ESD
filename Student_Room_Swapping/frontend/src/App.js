@@ -6,6 +6,8 @@ import Home from './Pages/Home.js';
 import ReceivedSwappingRequests from './Pages/ReceivedSwappingRequests.js';
 import RequestSwapping from './Pages/RequestSwapping.js';
 import MyRequests from './Pages/MyRequests.js';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 
 const App = () => {

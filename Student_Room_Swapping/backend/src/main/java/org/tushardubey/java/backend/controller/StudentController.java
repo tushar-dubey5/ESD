@@ -7,6 +7,7 @@ import org.tushardubey.java.backend.dto.LoginRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.tushardubey.java.backend.dto.StudentDetailsResponse;
 
 
 @RequiredArgsConstructor
@@ -22,5 +23,9 @@ public class StudentController {
     @PostMapping("/login")
     public ResponseEntity<String> loginStudent(@RequestBody @Valid LoginRequest request) {
         return ResponseEntity.ok(studentService.loginStudent(request));
+    }
+    @GetMapping("/about-me")
+    public ResponseEntity<StudentDetailsResponse> getStudentDetails(@RequestParam Long studentId) {
+        return ResponseEntity.ok(studentService.getStudentDetails(studentId));
     }
 }

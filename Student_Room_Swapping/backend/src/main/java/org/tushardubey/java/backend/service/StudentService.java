@@ -9,6 +9,10 @@ import org.tushardubey.java.backend.mapper.StudentMapper;
 import org.tushardubey.java.backend.repo.StudentRepo;
 import org.tushardubey.java.backend.entity.Student;
 import org.tushardubey.java.backend.dto.LoginRequest;
+import org.tushardubey.java.backend.repo.HostelRepo;
+import org.tushardubey.java.backend.dto.StudentDetailsResponse;
+import org.tushardubey.java.backend.entity.Hostel;
+
 
 @Service
 @RequiredArgsConstructor
@@ -18,6 +22,7 @@ public class StudentService {
     private final StudentMapper mapper;
     private final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
     private final JwtService jwtService;
+    private final HostelRepo hostelRepo;
 
     public String createStudent(StudentRequest request){
         Student student=mapper.toEntity(request);
@@ -37,6 +42,23 @@ public class StudentService {
         } else {
             throw new RuntimeException("Invalid credentials");
         }
+    }
+    public StudentDetailsResponse getStudentDetails(Long studentId) {
+        Student student = repo.findById(studentId)
+                .orElseThrow(() -> new RuntimeException("Student not found"));
+
+        Hostel hostel = hostelRepo.findByStudentId(studentId)
+                .orElseThrow(() -> new RuntimeException("Hostel details not found"));
+
+        return StudentDetailsResponse.builder()
+                .id(student.getId())
+                .firstName(student.getFirstName())
+                .lastName(student.getLastName())
+                .email(student.getEmail())
+                .roomNumber(hostel.getRoomNumber())
+                .hostelName(hostel.getName())
+                .floor(hostel.getFloor())
+                .build();
     }
 
 
