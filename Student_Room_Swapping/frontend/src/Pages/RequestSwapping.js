@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import Navbar from "../Components/Navbar";
 
 const RequestSwapping = () => {
   const [formData, setFormData] = useState({
@@ -38,6 +39,8 @@ const RequestSwapping = () => {
   };
 
   return (
+    <>
+    <Navbar/>
     <div>
       <h2>Create Room Swapping Request</h2>
       <form onSubmit={handleSubmit}>
@@ -78,6 +81,7 @@ const RequestSwapping = () => {
         <button type="submit" className="btn btn-primary">Submit</button>
       </form>
     </div>
+    </>
   );
 };
 

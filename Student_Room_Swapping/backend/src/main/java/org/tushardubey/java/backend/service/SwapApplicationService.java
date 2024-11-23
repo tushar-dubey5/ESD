@@ -90,7 +90,12 @@ public class SwapApplicationService {
         // Save the updated swap application status
         swapApplicationRepo.save(request);
     }
-
+    public List<SwapResponse> getRequestsForApplicant(Long applicantId) {
+        return swapApplicationRepo.findByApplicantId(applicantId)
+                .stream()
+                .map(this::mapToResponse)
+                .collect(Collectors.toList());
+    }
 
 
     public void rejectRequest(Long requestId, String recipientMessage) {
@@ -116,5 +121,6 @@ public class SwapApplicationService {
                 .status(request.getStatus())
                 .recipientMessage(request.getRecipientMessage())
                 .build();
+
     }
 }

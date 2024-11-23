@@ -29,5 +29,14 @@ public class SwapApplication {
     private String status; // "PENDING", "ACCEPTED", "REJECTED"
 
     private String recipientMessage; // Message from recipient
+
+    @ManyToOne
+    @JoinColumn(name = "applicant_hostel_id")
+    private Hostel applicantHostel;
+
+    @ManyToOne
+    @JoinColumn(name = "recipient_hostel_id")
+    private Hostel recipientHostel;
+
 }
 

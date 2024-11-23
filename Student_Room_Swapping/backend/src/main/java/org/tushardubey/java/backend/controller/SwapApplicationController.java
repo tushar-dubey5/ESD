@@ -33,6 +33,11 @@ public class SwapApplicationController {
         swapApplicationService.acceptRequest(requestId, recipientMessage);
         return ResponseEntity.ok("Request Accepted");
     }
+    @GetMapping("/my-requests")
+    public ResponseEntity<List<SwapResponse>> getMyRequests(@RequestParam Long applicantId) {
+        List<SwapResponse> requests = swapApplicationService.getRequestsForApplicant(applicantId);
+        return ResponseEntity.ok(requests);
+    }
 
     @PostMapping("/reject/{requestId}")
     public ResponseEntity<String> rejectRequest(
