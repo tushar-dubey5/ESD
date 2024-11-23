@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Navbar from "../Components/Navbar";
+import { useNavigate } from "react-router-dom";
+import '../App.css'
 
 const RequestSwapping = () => {
   const [formData, setFormData] = useState({
@@ -8,6 +10,7 @@ const RequestSwapping = () => {
     recipientId: "",
     applicationMessage: "",
   });
+  const navigate = useNavigate();
 
   useEffect(() => {
     const userId = localStorage.getItem("Id"); // Fetch logged-in user ID from localStorage
@@ -33,6 +36,7 @@ const RequestSwapping = () => {
         { headers: { Authorization: `Bearer ${token}` } }
       );
       alert("Swap request created successfully!");
+      navigate('/landing')
     } catch (error) {
       alert("Failed to create swap request: " + error.response.data.message);
     }
@@ -43,7 +47,7 @@ const RequestSwapping = () => {
     <Navbar/>
     <div>
       <h2>Create Room Swapping Request</h2>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className="request">
         <div className="mb-3">
           <label htmlFor="applicantId" className="form-label">Applicant</label>
           <input

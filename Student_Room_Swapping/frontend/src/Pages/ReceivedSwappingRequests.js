@@ -5,7 +5,7 @@ import Navbar from "../Components/Navbar";
 const ReceivedSwappingRequests = () => {
   const [requests, setRequests] = useState([]);
   const [loading, setLoading] = useState(true);
-
+  
   useEffect(() => {
     const fetchRequests = async () => {
       const token = localStorage.getItem("token");
@@ -18,6 +18,7 @@ const ReceivedSwappingRequests = () => {
         console.log(requests)
         setRequests(response.data);
         setLoading(false);
+       
       } catch (error) {
         console.error("Failed to fetch requests:", error);
         setLoading(false);

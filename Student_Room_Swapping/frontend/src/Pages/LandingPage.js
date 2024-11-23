@@ -13,10 +13,14 @@ const LandingPage = () => {
       <div class="landing-page">
       <div class="overlay">
       <h1>Welcome to IIITB Room Swapping Portal</h1>
-     
-    </div>
-  </div>
-
+    
+      </div>
+      </div>
+        <footer  className="footer">
+        <p>Developed By Tushar Dubey</p>
+      </footer>
+      
+  
     </>
   );
 };

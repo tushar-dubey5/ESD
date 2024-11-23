@@ -7,6 +7,7 @@ import ReceivedSwappingRequests from './Pages/ReceivedSwappingRequests.js';
 import RequestSwapping from './Pages/RequestSwapping.js';
 import MyRequests from './Pages/MyRequests.js';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import AboutMe from './Pages/AboutMe.js';
 
 
 
@@ -19,6 +20,7 @@ const App = () => {
                 <Route path="/request-swapping" element={<RequestSwapping />} />
                  <Route path="/received-swapping-requests" element={<ReceivedSwappingRequests />} />   
                  <Route path='/my-requests' element = {<MyRequests/>}/>
+                 <Route path="/about-me" element={<AboutMe />} />
             </Routes>
         </Router>
     );

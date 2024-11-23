@@ -69,6 +69,10 @@
   font-weight: 300;
 }
 
+.about-me{
+  padding-left: 20px;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
@@ -76,4 +80,18 @@
   to {
     transform: rotate(360deg);
   }
+}
+.footer {
+  background-color: #f1f1f1; /* Light gray background */
+  text-align: center; /* Center align the text */
+  padding: 3px 0; /* Vertical padding */
+  position: fixed; /* Fix it to the bottom */
+  bottom: 0; /* Align to the bottom */
+  width: 100%; /* Ensure it spans the full width of the page */
+  font-size: 17px; /* Set font size */
+  color: #333; /* Dark gray text */
+  border-top: 1px solid #ddd; /* Add a subtle border at the top */
+}
+.request{
+  padding: 0px 17px 0px 17px;
 }
