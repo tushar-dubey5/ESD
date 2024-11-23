@@ -2,12 +2,19 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Table } from 'react-bootstrap';
 import Navbar from '../Components/Navbar';
+import { useNavigate } from 'react-router-dom';
 
 const MyRequests = () => {
+    const navigate = useNavigate()
     const [requests, setRequests] = useState([]);
     const applicantId = localStorage.getItem("Id"); // Assuming the ID is stored in local storage after login.
+   
     console.log("Applicant Id: ",applicantId);
     useEffect(() => {
+        if (!applicantId) {
+            navigate('/'); // Redirect to the home page if the user is not logged in
+            return;
+        }
         axios
             .get(`http://localhost:8080/api/v1/swap/my-requests?applicantId=${applicantId}`)
             .then((response) => setRequests(response.data))

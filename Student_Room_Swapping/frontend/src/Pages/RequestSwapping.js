@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import '../App.css'
 
 const RequestSwapping = () => {
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
   const [formData, setFormData] = useState({
     applicantId: "", // Auto-filled with logged-in user's ID
     recipientId: "",
@@ -14,6 +15,12 @@ const RequestSwapping = () => {
 
   useEffect(() => {
     const userId = localStorage.getItem("Id"); // Fetch logged-in user ID from localStorage
+    if (!userId) {
+        navigate('/')// User is not logged in
+      return;
+    }
+
+    setIsLoggedIn(true);
     if (userId) {
       setFormData((prev) => ({ ...prev, applicantId: userId }));
     } else {
@@ -41,7 +48,9 @@ const RequestSwapping = () => {
       alert("Failed to create swap request: " + error.response.data.message);
     }
   };
-
+  if (!isLoggedIn) {
+    navigate('/')
+  }
   return (
     <>
     <Navbar/>

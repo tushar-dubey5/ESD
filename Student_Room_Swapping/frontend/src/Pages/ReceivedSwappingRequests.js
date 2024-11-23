@@ -1,24 +1,33 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Navbar from "../Components/Navbar";
+import { useNavigate } from "react-router-dom";
 
 const ReceivedSwappingRequests = () => {
   const [requests, setRequests] = useState([]);
   const [loading, setLoading] = useState(true);
-  
+  const [isLoggedIn, setIsLoggedIn] = useState(false); // New state for login status
+ const navigate = useNavigate();
   useEffect(() => {
+    const token = localStorage.getItem("token");
+    const recipientId = localStorage.getItem("Id");
+
+    if (!token || !recipientId) {
+      setIsLoggedIn(false); // User is not logged in
+      setLoading(false);
+      return;
+    }
+
+    setIsLoggedIn(true); // User is logged in
+
     const fetchRequests = async () => {
-      const token = localStorage.getItem("token");
-      const recipientId = localStorage.getItem("Id");
       try {
         const response = await axios.get(
           `http://localhost:8080/api/v1/swap/recipient/${recipientId}`,
           { headers: { Authorization: `Bearer ${token}` } }
         );
-        console.log(requests)
         setRequests(response.data);
         setLoading(false);
-       
       } catch (error) {
         console.error("Failed to fetch requests:", error);
         setLoading(false);
@@ -73,6 +82,29 @@ const ReceivedSwappingRequests = () => {
     }
   };
 
+  if (loading) {
+ 
+    return (
+      <>
+        <Navbar />
+        <div className="container mt-4">
+          <p>Loading...</p>
+        </div>
+      </>
+    );
+  }
+
+  if (!isLoggedIn) {
+    navigate('/')
+    // return (
+    //   <>
+    //     <Navbar />
+    //     <div className="container mt-4">
+    //       <p className="error-message">User not logged in</p>
+    //     </div>
+    //   </>
+    // );
+  }
 
   return (
     <>
