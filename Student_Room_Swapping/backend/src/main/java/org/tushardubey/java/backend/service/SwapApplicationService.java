@@ -12,6 +12,7 @@ import org.tushardubey.java.backend.repo.HostelRepo;
 import org.tushardubey.java.backend.repo.StudentRepo;
 import org.tushardubey.java.backend.repo.SwapApplicationRepo;
 
+import java.util.Optional;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -30,7 +31,15 @@ public class SwapApplicationService {
 
         Student recipient = studentRepo.findById(request.getRecipientId())
                 .orElseThrow(() -> new RuntimeException("Recipient not found: " + request.getRecipientId()));
+        Optional<SwapApplication> existingRequest = swapApplicationRepo.findByApplicantIdAndRecipientIdAndStatus(
+                request.getApplicantId(),
+                request.getRecipientId(),
+                "PENDING"
+        );
 
+        if (existingRequest.isPresent()) {
+            throw new RuntimeException("Already created request");
+        }
         SwapApplication swapApplication = SwapApplication.builder()
                 .applicant(applicant)
                 .recipient(recipient)

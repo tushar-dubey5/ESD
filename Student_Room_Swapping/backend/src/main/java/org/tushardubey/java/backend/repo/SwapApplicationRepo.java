@@ -5,7 +5,7 @@ import org.tushardubey.java.backend.entity.SwapApplication;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-
+import java.util.Optional;
 import java.util.List;
 
 public interface SwapApplicationRepo extends JpaRepository<SwapApplication, Long> {
@@ -14,4 +14,9 @@ public interface SwapApplicationRepo extends JpaRepository<SwapApplication, Long
     List<SwapApplication> findAllByApplicantId(@Param("applicantId") Long applicantId);
 
     List<SwapApplication> findByApplicantId(Long applicantId);
+    Optional<SwapApplication> findByApplicantIdAndRecipientIdAndStatus(
+            Long applicantId,
+            Long recipientId,
+            String status
+    );
 }
