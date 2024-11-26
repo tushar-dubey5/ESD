@@ -7,6 +7,7 @@ export const loginUser = async (email, password) => {
       email,
       password,
     });
+    console.log("Response from auth:",response)
     return response.data; // Return the token
   } catch (error) {
     throw new Error('Invalid email or password.');

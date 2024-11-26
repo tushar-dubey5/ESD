@@ -34,6 +34,7 @@ const ReceivedSwappingRequests = () => {
     try {
       await rejectSwapRequest(requestId, recipientMessage, token);
       alert("Request rejected!");
+      reload();
     } catch (error) {
       alert(error.message);
     }
