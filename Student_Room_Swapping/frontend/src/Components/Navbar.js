@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import Home from "../Pages/Home";
+import Contact from "../Pages/Contact";
 import '../App.css'
 import Logo from  './logo.png'
 const Navbar = () => {
@@ -25,7 +25,9 @@ const Navbar = () => {
             <li className="nav-item">
               <Link className="nav-link" to="/about-me">About Me</Link>
             </li>
-              
+            <li className="nav-item">
+              <Link className="nav-link" to="/contact">Contact</Link>
+            </li>
 
           </ul>
         </div>
