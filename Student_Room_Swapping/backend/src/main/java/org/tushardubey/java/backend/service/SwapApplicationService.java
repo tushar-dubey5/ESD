@@ -31,6 +31,11 @@ public class SwapApplicationService {
 
         Student recipient = studentRepo.findById(request.getRecipientId())
                 .orElseThrow(() -> new RuntimeException("Recipient not found: " + request.getRecipientId()));
+        Hostel applicantHostel = hostelRepo.findByStudentId(applicant.getId())
+                .orElseThrow(() -> new RuntimeException("Applicant's hostel not found"));
+        Hostel recipientHostel = hostelRepo.findByStudentId(recipient.getId())
+                .orElseThrow(() -> new RuntimeException("Recipient's hostel not found"));
+
         Optional<SwapApplication> existingRequest = swapApplicationRepo.findByApplicantIdAndRecipientIdAndStatus(
                 request.getApplicantId(),
                 request.getRecipientId(),
@@ -45,6 +50,8 @@ public class SwapApplicationService {
                 .recipient(recipient)
                 .applicationMessage(request.getApplicationMessage())
                 .status("PENDING")
+                .applicantHostel(applicantHostel) // Set the applicant's hostel
+                .recipientHostel(recipientHostel)
                 .build();
 
         SwapApplication savedRequest = swapApplicationRepo.save(swapApplication);
@@ -120,8 +127,16 @@ public class SwapApplicationService {
 
         swapApplicationRepo.save(request);
     }
+    public Long getRoomNumberByStudentId(Long studentId) {
+        return hostelRepo.findByStudentId(studentId)
+                .map(Hostel::getRoomNumber) // Extract room number if present
+                .orElseThrow(() -> new RuntimeException("Room not found for student ID: " + studentId));
+    }
 
     private SwapResponse mapToResponse(SwapApplication request) {
+        Long applicantId = request.getApplicant().getId();
+        Long applicantRoomNumber = getRoomNumberByStudentId(applicantId);
+        System.out.println("Applicant: "+ applicantRoomNumber);
         return SwapResponse.builder()
                 .id(request.getId())
                 .applicantName(request.getApplicant().getFirstName() + " " + request.getApplicant().getLastName())
@@ -129,6 +144,7 @@ public class SwapApplicationService {
                 .applicationMessage(request.getApplicationMessage())
                 .status(request.getStatus())
                 .recipientMessage(request.getRecipientMessage())
+                .roomNumber(applicantRoomNumber)
                 .build();
 
     }

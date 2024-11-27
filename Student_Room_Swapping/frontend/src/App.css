@@ -95,3 +95,18 @@
 .request{
   padding: 0px 17px 0px 17px;
 }
+
+.container-fluid{
+  padding-right: 40px;
+}
+.logout{
+  font-weight: 500;
+  border-radius: 12px;
+  padding: 1px 25px 1px 25px;
+  background-color: rgb(233, 233, 233);
+}
+
+.logout:hover{
+ 
+  background-color: rgb(180, 180, 180);
+}

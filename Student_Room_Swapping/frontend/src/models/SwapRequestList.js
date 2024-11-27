@@ -4,6 +4,7 @@ export default class SwapRequestList {
       this.applicantName = data.applicantName;
       this.applicationMessage = data.applicationMessage;
       this.status = data.status;
+      this.roomNumber = data.roomNumber
     }
   
     // Method to check if a request is pending

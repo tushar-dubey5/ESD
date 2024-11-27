@@ -12,4 +12,5 @@ public class SwapResponse {
     private String applicationMessage;
     private String status;
     private String recipientMessage;
+    private Long roomNumber;
 }

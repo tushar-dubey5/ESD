@@ -7,4 +7,5 @@ import java.util.Optional;
 
 public interface HostelRepo extends JpaRepository<Hostel, Long> {
     Optional<Hostel> findByStudentId(Long studentId);
+
 }

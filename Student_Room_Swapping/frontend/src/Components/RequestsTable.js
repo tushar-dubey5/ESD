@@ -11,6 +11,7 @@ const RequestsTable = ({ requests }) => (
                 <th>Application Message</th>
                 <th>Status</th>
                 <th>Recipient Message</th>
+                <th>Room Number</th>
             </tr>
         </thead>
         <tbody>
@@ -21,6 +22,7 @@ const RequestsTable = ({ requests }) => (
                     <td>{request.applicationMessage}</td>
                     <td>{request.status}</td>
                     <td>{request.recipientMessage}</td>
+                    <td>{request.roomNumber}</td>
                 </tr>
             ))}
         </tbody>

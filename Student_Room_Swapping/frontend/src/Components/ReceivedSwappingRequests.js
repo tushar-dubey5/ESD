@@ -66,7 +66,8 @@ const ReceivedSwappingRequests = () => {
                 <th>Applicant</th>
                 <th>Message</th>
                 <th>Status</th>
-                <th>Actions</th>
+                <th>Room Number</th>
+                <th>Actions</th> 
               </tr>
             </thead>
             <tbody>
@@ -76,6 +77,7 @@ const ReceivedSwappingRequests = () => {
                   <td>{request.applicantName}</td>
                   <td>{request.applicationMessage}</td>
                   <td>{request.status}</td>
+                  <td>{request.roomNumber}</td>
                   <td>
                     {request.isPending() && (
                       <>

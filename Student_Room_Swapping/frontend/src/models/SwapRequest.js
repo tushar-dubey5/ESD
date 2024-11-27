@@ -4,5 +4,6 @@ export default class SwapRequest {
         this.applicantId = data.applicantId || ""; // Logged-in user ID
         this.recipientId = data.recipientId || ""; // Recipient ID
         this.applicationMessage = data.applicationMessage || ""; // Message to recipient
+       
     }
 }

@@ -1,9 +1,17 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Contact from "../Pages/Contact";
 import '../App.css'
 import Logo from  './logo.png'
 const Navbar = () => {
+  const navigate = useNavigate()
+  const handleLogout = () => {
+    // Clear local storage
+    localStorage.clear();
+
+    // Redirect to home page
+    navigate('/');
+  };
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
       <div className="container-fluid">
@@ -30,6 +38,15 @@ const Navbar = () => {
             </li>
 
           </ul>
+        </div>
+        <div className="logout">
+        <button 
+                className="btn btn-danger nav-link"
+                onClick={handleLogout}
+                style={{ border: "none", background: "none" }}
+              >
+                Logout
+              </button>
         </div>
       </div>
     </nav>
